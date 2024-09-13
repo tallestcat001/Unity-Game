@@ -23,6 +23,11 @@ public class Runner : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
+    private void OnEnable()
+    {
+        InputManager.Instance.action += OnKeyUpdate;
+    }
+
     void Start()
     {
         roadLine = RoadLine.MIDDLE;
@@ -46,12 +51,7 @@ public class Runner : MonoBehaviour
             }
         }
     }
-
-    void Update()
-    {
-        OnKeyUpdate();
-    }
-
+    
     private void Move()
     {
         rigidBody.position = Vector3.Lerp(rigidBody.position, new Vector3((int)roadLine * positionX, 0, 0), speed * Time.fixedDeltaTime);
@@ -60,5 +60,10 @@ public class Runner : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.action -= OnKeyUpdate;
     }
 }
