@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    
-
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
+        IInteractable interractable = other.GetComponent<IInteractable>();
 
-    void Update()
-    {
-        
+        if (interractable != null)
+        {
+            interractable.Interact();
+        }
     }
 }
